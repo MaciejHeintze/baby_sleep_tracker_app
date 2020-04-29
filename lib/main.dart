@@ -26,6 +26,7 @@ class MainState extends State<App> {
   List<String> types = new List<String>();
   List<String> times = new List<String>();
   List<String> timesOfDay = new List<String>();
+  var listTypes,listTime, listTimeOfDay;
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +69,9 @@ class MainState extends State<App> {
                         types.add(item.type);
                         times.add(item.time);
                         timesOfDay.add(item.timeOfDay);
+                         listTypes = types.reversed.toList();
+                         listTimeOfDay = timesOfDay.reversed.toList();
+                         listTime = times.reversed.toList();
                       });
                   },
                 textColor: Colors.white,
@@ -111,13 +115,13 @@ class MainState extends State<App> {
                           leading: Padding(
                             padding: const EdgeInsets.fromLTRB(0,10,0,0),
                             child: Text(
-                              "${timesOfDay[index]}",
+                              "${listTimeOfDay[index]}",
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          title: Text("${types[index]}", style: TextStyle(fontSize: 16.0, color: Colors.blue[900]),),
-                          subtitle: Text("${times[index]}", style: TextStyle(fontSize: 16.0, color: Colors.grey),),
+                          title: Text("${listTypes[index]}", style: TextStyle(fontSize: 16.0, color: Colors.blue[900]),),
+                          subtitle: Text("${listTime[index]}", style: TextStyle(fontSize: 16.0, color: Colors.grey),),
                         ),
                       );
                     }
