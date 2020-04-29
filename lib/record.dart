@@ -76,10 +76,13 @@ class RecordState extends State<Record>{
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Image(
-                    image: AssetImage('assets/baby.jpg'),
-                    height: 200,
-                    width: 400,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16.0),
+                    child: Image(
+                      image: AssetImage('assets/baby.jpg'),
+                      height: 200,
+                      width: 400,
+                  ),
                   ),
                   SizedBox(height: 20.0),
 
