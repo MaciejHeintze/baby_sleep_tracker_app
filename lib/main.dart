@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'record.dart';
+import 'item.dart';
+import 'package:intl/intl.dart';
 
 void main(){
   runApp(MaterialApp(
@@ -18,8 +20,20 @@ class App extends StatefulWidget {
 
 class MainState extends State<App> {
 
+  String userType="";
+  String userTime="";
+  String timeOfDay="";
+  List<String> types = new List<String>();
+  List<String> times = new List<String>();
+  List<String> timesOfDay = new List<String>();
+
   @override
   Widget build(BuildContext context) {
+
+    var now = new DateTime.now();
+    var formatter = new DateFormat('EEEE, dd MMM yyyy');
+    String formatted = formatter.format(now);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Sleep Tracker"),
@@ -45,9 +59,17 @@ class MainState extends State<App> {
               ),
               RaisedButton(
                 onPressed: () async{
+                  Item item = new Item(userType, userTime,timeOfDay);
                   final result = await Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Record()));
-                },
+                      context, MaterialPageRoute(builder: (context) => Record(item: item)));
+
+                      setState(() {
+                        item = result;
+                        types.add(item.type);
+                        times.add(item.time);
+                        timesOfDay.add(item.timeOfDay);
+                      });
+                  },
                 textColor: Colors.white,
 
                 padding: const EdgeInsets.all(0.0),
@@ -70,11 +92,41 @@ class MainState extends State<App> {
               ),
               SizedBox(height: 100.0),
 
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "$formatted",
+                    style: TextStyle(fontSize: 26, color: Colors.black),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                    itemCount: types.length,
+                    itemBuilder: (BuildContext context,int index){
+                      return Card(
+                        child: ListTile(
+                          leading: Padding(
+                            padding: const EdgeInsets.fromLTRB(0,10,0,0),
+                            child: Text(
+                              "${timesOfDay[index]}",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          title: Text("${types[index]}", style: TextStyle(fontSize: 16.0, color: Colors.blue[900]),),
+                          subtitle: Text("${times[index]}", style: TextStyle(fontSize: 16.0, color: Colors.grey),),
+                        ),
+                      );
+                    }
+                ),
+              )
             ],
           ),
         ),
       ),
     );
   }
-
 }
