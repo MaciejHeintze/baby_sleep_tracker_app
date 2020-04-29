@@ -1,9 +1,11 @@
-import 'package:babysleeptrackerapp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:numberpicker/numberpicker.dart';
+import 'item.dart';
 
 class Record extends StatefulWidget{
-  Record({Key key}) : super(key: key);
+  final Item item;
+  Record({Key key, this.item}) : super(key: key);
 
   @override
   RecordState createState() => RecordState();
@@ -12,6 +14,46 @@ class Record extends StatefulWidget{
 class RecordState extends State<Record>{
 
   String dropdownValue = 'Nap';
+  var hours = 0;
+  var minutes = 0;
+  int index = 0;
+
+  void _showDialogHours() {
+    showDialog<dynamic>(
+        context: context,
+        builder: (BuildContext context) {
+          return new NumberPickerDialog.integer(
+            minValue: 0,
+            maxValue: 24,
+            title: new Text("Pick sleeping hours"),
+            initialIntegerValue: hours,
+          );
+        }
+    ).then((var value) {
+      if (value != null) {
+        setState(() => hours = value);
+        _showDialogMinutes();
+      }
+    });
+  }
+
+  void _showDialogMinutes() {
+    showDialog<dynamic>(
+        context: context,
+        builder: (BuildContext context) {
+          return new NumberPickerDialog.integer(
+            minValue: 0,
+            maxValue: 59,
+            title: new Text("Pick sleeping minutes"),
+            initialIntegerValue: hours,
+          );
+        }
+    ).then((var value) {
+      if (value != null) {
+        setState(() => minutes = value);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +76,11 @@ class RecordState extends State<Record>{
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-
                   Image(
                     image: AssetImage('assets/baby.jpg'),
                     height: 200,
                     width: 400,
                   ),
-
                   SizedBox(height: 20.0),
 
                   Text(
@@ -104,7 +144,42 @@ class RecordState extends State<Record>{
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  FlatButton(
+                    onPressed: (){
+                      _showDialogHours();
+                    },
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        '$hours hours, $minutes minutes',
+                        style: TextStyle(fontSize: 12.0),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ),
 
+                  SizedBox(
+                    width: double.infinity,
+
+                    child: RaisedButton(
+                      onPressed: () {
+                        sleepDuration =  '$hours hours, $minutes minutes';
+
+                        Item item1= new Item(dropdownValue, sleepDuration, formattedHours);
+
+                        Navigator.pop(context, item1);
+
+                      },
+                      textColor: Colors.white,
+                      padding: const EdgeInsets.all(0.0),
+                      color: Colors.blue,
+
+                      child: Text(
+                          'Save',
+                          style: TextStyle(fontSize: 20)
+                      ),
+                    ),
+                  ),
                 ],
               ),
           ),
@@ -112,5 +187,4 @@ class RecordState extends State<Record>{
       ),
     );
   }
-
 }
