@@ -86,81 +86,89 @@ class RecordState extends State<Record>{
                   ),
                   SizedBox(height: 20.0),
 
-                  Text(
-                    'Date and time',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    ListTile(
+                      leading: Padding(
+                        padding: const EdgeInsets.fromLTRB(0,10.0,0,0),
+                        child: Image(image: AssetImage('assets/calendaricon.png')),
+                      ),
+
+                      title: Text('Date and time', style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold) ,
+                      ),
+                      subtitle:Text(
+                        '$formatted',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18.0,
+                          letterSpacing: 2.0,
+                        ),
+                      ) ,
                   ),
-                  Text(
-                    '$formatted',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 22.0,
-                      letterSpacing: 2.0,
+                  Divider(
+                    color: Colors.grey,
+                    height: 30.0,
+                  ),
+                  ListTile(
+                    leading: Padding(
+                      padding: const EdgeInsets.fromLTRB(0,10.0,0,0),
+                      child: Image(image: AssetImage('assets/moon_icon.png')),
+                    ),
+                    title: Text('Sleep type', style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold) ,
+                    ),
+
+                    subtitle: DropdownButton<String>(
+                      value: dropdownValue,
+                      underline: Container(
+                        height: 4,
+                      ),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          dropdownValue = newValue;
+                        });
+                      },
+                      items: <String>['Nap', 'Nights sleep','Day']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
                     ),
                   ),
                   Divider(
                     color: Colors.grey,
                     height: 30.0,
                   ),
-                  Text(
-                    'Sleep type',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
 
-                  DropdownButton<String>(
-                    value: dropdownValue,
-                    underline: Container(
-                      height: 4,
+                  ListTile(
+                    leading: Padding(
+                      padding: const EdgeInsets.fromLTRB(0,0,8.0, 12.0),
+                      child: Image(image: AssetImage('assets/clock_icon.png')),
                     ),
-                    onChanged: (String newValue) {
-                      setState(() {
-                        dropdownValue = newValue;
-                      });
-                    },
-                    items: <String>['Nap', 'Nights sleep','Day']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-
-                  Divider(
-                    color: Colors.grey,
-                    height: 30.0,
-                  ),
-
-                  Text(
-                    'Sleep duration',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
+                    title: Text('Sleep duration', style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold) ,
                     ),
-                  ),
-                  FlatButton(
-                    onPressed: (){
-                      _showDialogHours();
-                    },
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        '$hours hours, $minutes minutes',
-                        style: TextStyle(fontSize: 12.0),
-                        textAlign: TextAlign.left,
+                    subtitle: FlatButton(
+                      onPressed: (){
+                        _showDialogHours();
+                      },
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          '$hours hours, $minutes minutes',
+                          style: TextStyle(fontSize: 12.0),
+                          textAlign: TextAlign.left,
+                        ),
                       ),
                     ),
                   ),
-
                   SizedBox(
                     width: double.infinity,
 

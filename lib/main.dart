@@ -54,7 +54,7 @@ class MainState extends State<App> {
                 child: Text("Get to know your baby's sleep patterns and keep\n"
                     "track of how much sleep they are getting here",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.grey, fontSize: 16.0),
+                  style: TextStyle(color: Colors.grey, fontSize: 14.0),
                 ),
               ),
               RaisedButton(
@@ -98,7 +98,7 @@ class MainState extends State<App> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     "$formatted",
-                    style: TextStyle(fontSize: 26, color: Colors.black),
+                    style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
                 ),
               ),
