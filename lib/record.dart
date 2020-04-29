@@ -1,5 +1,6 @@
 import 'package:babysleeptrackerapp/main.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Record extends StatefulWidget{
   Record({Key key}) : super(key: key);
@@ -14,6 +15,14 @@ class RecordState extends State<Record>{
 
   @override
   Widget build(BuildContext context) {
+
+    var now = new DateTime.now();
+    var formatter = new DateFormat('dd MMMM yyyy, H:mm');
+    var formatterHours = new DateFormat('H:m');
+    String formatted = formatter.format(now);
+    String formattedHours = formatterHours.format(now);
+    String sleepDuration;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Sleep Tracker"),
@@ -43,7 +52,7 @@ class RecordState extends State<Record>{
                     ),
                   ),
                   Text(
-                    'datetime',
+                    '$formatted',
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 22.0,
