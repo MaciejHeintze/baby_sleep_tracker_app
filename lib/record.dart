@@ -97,12 +97,14 @@ class RecordState extends State<Record>{
                         color: Colors.blue,
                         fontWeight: FontWeight.bold) ,
                       ),
-                      subtitle:Text(
-                        '$formatted',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 18.0,
-                          letterSpacing: 2.0,
+                      subtitle:Padding(
+                        padding: const EdgeInsets.fromLTRB(0,8.0,0,0),
+                        child: Text(
+                          '$formatted',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 18.0,
+                          ),
                         ),
                       ) ,
                   ),
