@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'record.dart';
 
 void main(){
   runApp(MaterialApp(
@@ -43,7 +44,10 @@ class MainState extends State<App> {
                 ),
               ),
               RaisedButton(
-                onPressed: (){},
+                onPressed: () async{
+                  final result = await Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Record()));
+                },
                 textColor: Colors.white,
 
                 padding: const EdgeInsets.all(0.0),
